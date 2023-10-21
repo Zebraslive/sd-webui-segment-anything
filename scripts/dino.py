@@ -30,7 +30,7 @@ dino_install_issue_text = "permanently switch to local groundingdino on Settings
 
 
 def install_goundingdino():
-    if shared.opts.data.get("sam_use_local_groundingdino", False):
+    if shared.opts.data.get("sam_use_local_groundingdino", True):
         print("Using local groundingdino.")
         return False
 
@@ -171,7 +171,7 @@ def dino_predict_internal(input_image, dino_model_name, text_prompt, box_thresho
     print("Running GroundingDINO Inference")
     dino_image = load_dino_image(input_image.convert("RGB"), install_success)
     dino_model = load_dino_model(dino_model_name, install_success)
-    install_success = install_success or shared.opts.data.get("sam_use_local_groundingdino", False)
+    install_success = install_success or shared.opts.data.get("sam_use_local_groundingdino", True)
 
     boxes_filt = get_grounding_output(
         dino_model, dino_image, text_prompt, box_threshold
